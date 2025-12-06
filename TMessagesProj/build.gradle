@@ -66,8 +66,8 @@ def abis = [9: 'universal', 1: 'armeabi-v7a', 5: 'arm64-v8a', 2: 'x86', 6: 'x86_
 android {
     compileSdkVersion 33
     buildToolsVersion '33.0.1'
-    ndkVersion "21.4.7075529"
-    namespace 'org.telegram.messenger'
+    ndkVersion "23.1.7779620"
+    namespace 'org.alyagram.messenger'
 
     defaultConfig.applicationId = APP_PACKAGE
     defaultConfig.versionCode = Integer.parseInt(APP_VERSION_CODE)

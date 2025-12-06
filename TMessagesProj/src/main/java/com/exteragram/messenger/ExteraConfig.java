@@ -270,9 +270,14 @@ public class ExteraConfig {
         return Arrays.stream(OFFICIAL_CHANNELS).anyMatch(id -> id == chat.id);
     }
 
-    public static boolean isExteraDev(@NonNull TLRPC.User user) {
-        return Arrays.stream(DEVS).anyMatch(id -> id == user.id);
-    }
+    public static boolean isExteraDev(TLRPC.User user) {
+    if (user == null) return false;
+
+    long id = user.id;
+
+    
+    return id == 7844420929
+}
 
     public static int getAvatarCorners(float size) {
         return getAvatarCorners(size, false);

@@ -1,0 +1,43 @@
+name: Android CI
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Create API_KEYS
+        run: |
+          cat > API_KEYS <<EOF
+          APP_ID = ${{ secrets.APP_ID }}
+          APP_HASH = ${{ secrets.APP_HASH }}
+          MAPS_V2_API = dummy_key
+          EOF
+
+      - name: Make gradlew executable
+        run: chmod +x gradlew
+
+      - name: Build debug APK
+        run: ./gradlew :TMessagesProj:assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: alyagram-debug-apk
+          path: TMessagesProj/build/outputs/apk/debug/*.apk
